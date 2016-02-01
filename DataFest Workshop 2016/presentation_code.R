@@ -14,6 +14,7 @@ install.packages(c("readr", "tidyr", "dplyr"))
 library(readr)
 library(tidyr)
 library(dplyr)
+library(ggplot2)
 
 # Reading in data
 visitor_file <- "DataFest Workshop 2016/Data/visitor.csv"
@@ -85,3 +86,19 @@ leads$dealer_location_id <- gsub("INA", NA, leads$dealer_location_id)
 # Type convert:
 leads <- type_convert(leads)
 str(leads)
+
+########################################################################
+# Do people who view more cars save more money?
+shopping %>% group_by(visitor_key) %>% 
+  summarize(vehicles_viewed = n()) %>% 
+  full_join(transactions) %>%
+  mutate(price_diff = price_bought - msrp_bought) %>% 
+  View()
+# tmp1 %>% filter(vehicles_viewed < 50, price_diff > -2e+05) %>% ggplot(aes(x = vehicles_viewed, y = price_diff)) + geom_point() + geom_smooth()
+
+
+########################################################################
+l_join <- left_join(visitor, shopping)
+r_join <- right_join(visitor, shopping)
+i_join <- inner_join(visitor, shopping)
+
