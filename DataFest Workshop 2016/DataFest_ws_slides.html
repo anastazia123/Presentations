@@ -123,6 +123,9 @@
 library(tidyr) # (0.4.0)
 library(dplyr) # (0.4.3)</pre>
 
+<pre class = 'prettyprint lang-r'>library(ggplot2)
+library(reshape2)</pre>
+
 </article></slide><slide class=''><hgroup><h2>Pipes <code>%&gt;%</code></h2></hgroup><article  id="pipes">
 
 <ul>
@@ -191,13 +194,6 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 
 ## DF2015 Data Dictionary
 
-`leads.csv`
-
-> This table contains information about any leads that the visitors from the Visitor table submitted during their journey through the site. There is one row per lead in the table with several columns of detail about the lead.  For privacy reasons all personally identifiable information has been excluded.
-
-
-## DF2015 Data Dictionary
-
 `transactions.csv`
 
 > Some Edmunds' Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent.  This table contains detailed information about those purchases.  There is one row per transaction with several columns of detail, including date, vehicle data and some customer data.  For privacy reasons all personally identifiable information has been excluded.
@@ -222,12 +218,12 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 <pre class = 'prettyprint lang-r'>system.time(read.csv(&quot;Data/visitor.csv&quot;))</pre>
 
 <pre >##    user  system elapsed 
-## 156.429   3.188 160.745</pre>
+## 163.255  18.190 188.297</pre>
 
 <pre class = 'prettyprint lang-r'>system.time(read_csv(&quot;Data/visitor.csv&quot;))</pre>
 
 <pre >##    user  system elapsed 
-##  15.609   0.800  16.531</pre>
+##  17.150   1.600  22.488</pre>
 
 <ul>
 <li><code>read_csv()</code> is way faster that <code>read.csv()</code></li>
@@ -236,6 +232,14 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-1" class="flexbox vcenter">
 
 <p>Switch to <code>RStudio</code> and use <code>read_csv()</code> and <code>read.csv()</code> to read-in the <code>visitor</code> data. Then look for differences.</p>
+
+</article></slide><slide class=''><hgroup><h2>DF2015 Data Dictionary</h2></hgroup><article  id="df2015-data-dictionary-1">
+
+<p><code>leads.csv</code></p>
+
+<blockquote>
+<p>This table contains information about any leads that the visitors from the Visitor table submitted during their journey through the site. There is one row per lead in the table with several columns of detail about the lead. For privacy reasons all personally identifiable information has been excluded.</p>
+</blockquote>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-2" class="flexbox vcenter">
 
@@ -249,6 +253,57 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 </ul>
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Forming data.</h2></hgroup><article  id="forming-data.">
+
+</article></slide><slide class=''><hgroup><h2>What is <em>tidy</em> data?</h2></hgroup><article  id="what-is-tidy-data">
+
+<ul>
+<li>Need two things for a <em>tidy</em> data:
+
+<ol>
+<li>Rows are individual observations.</li>
+<li>Columns are measurements, more commonly variables, about each observation.</li>
+</ol></li>
+<li>Two forms of <em>tidy</em> data:
+
+<ol>
+<li><em>Long</em></li>
+<li><em>Wide</em></li>
+</ol></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>DF2015 Data Dictionary</h2></hgroup><article  id="df2015-data-dictionary-2">
+
+<p><code>shopping.csv</code></p>
+
+<blockquote>
+<p>This table basically contains a vehicle browsing history of each visitor from the <code>visitor</code> table, showing which vehicles were seen during the visitor journey through our web site.</p>
+</blockquote>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-3" class="flexbox vcenter">
+
+<p>Use <code>read_csv()</code> to read in the <code>shopping</code> data. Then spread the values out to make it <em>wide</em></p>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-4" class="flexbox vcenter">
+
+<p>Use <code>gather()</code> to convert the first 10 rows of <code>visitor</code> data to a <em>long</em> format. Contrast this with the slightly more robust <code>melt()</code> function in <code>reshape2</code> package. Plot this <em>long</em> data as a faceted histogram.</p>
+
+</article></slide><slide class=''><hgroup><h2>Our new friends</h2></hgroup><article  id="our-new-friends">
+
+<ul>
+<li>Helpful <code>dplyr</code> functions:
+
+<ol>
+<li><code>select()</code>: Choose variables (by name or column number)</li>
+<li><code>slice()</code>: By row number.</li>
+<li><code>filter()</code>: Subset data based on values of variables.</li>
+<li><code>mutate()</code>: Add variables or change existing variables in place.</li>
+<li><code>summarize()</code>: Reduce data to a table of summaries</li>
+<li><code>arrange()</code>: Re-order rows based on variable values</li>
+<li><code>group_by()</code>: Perform operations based on categorical variables.</li>
+</ol></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-5" class="flexbox vcenter">
 
 </article></slide><slide class=''><hgroup><h2>Thinking through <code>*_join</code>s.</h2></hgroup><article  id="thinking-through-_joins.">
 
@@ -284,9 +339,18 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 
 <pre class = 'prettyprint lang-r'>write_csv(JOINED DATA FILE, path = &quot;Data/JOINED DATA FILE.Rda&quot;)</pre>
 
-</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-3" class="flexbox vcenter">
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-6" class="flexbox vcenter">
 
-<p>Questions?</p></article></slide>
+<p>Questions?</p>
+
+</article></slide><slide class=''><hgroup><h2>Resources</h2></hgroup><article  id="resources">
+
+<ul>
+<li><a href='https://github.com/hadley/readr' title=''>readr</a></li>
+<li><a href='https://github.com/hadley/tidyr' title=''>tidyr</a></li>
+<li><p><a href='https://github.com/hadley/dplyr' title=''>dplyr</a></p></li>
+<li><p>Also worth looking at the <code>vignettes</code> for each of these packages.</p></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>

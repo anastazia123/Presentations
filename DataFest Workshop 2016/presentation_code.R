@@ -104,7 +104,7 @@ shopping %>% group_by(visitor_key) %>%
   full_join(transactions) %>%
   mutate(price_diff = price_bought - msrp_bought) %>% 
   View()
-# tmp1 %>% filter(vehicles_viewed < 50, price_diff > -2e+05) %>% ggplot(aes(x = vehicles_viewed, y = price_diff)) + geom_point() + geom_smooth()
+tmp1 %>% filter(vehicles_viewed < 50, price_diff > -2e+05) %>% ggplot(aes(x = vehicles_viewed, y = price_diff)) + geom_point() + geom_smooth()
 
 
 ########################################################################

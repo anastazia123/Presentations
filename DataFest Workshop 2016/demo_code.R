@@ -10,6 +10,7 @@ visitor_base <- read.csv("DataFest Workshop 2016/Data/visitor.csv")
 
 # Look at variable 1:4 and then 189:190
 
+
 # Load the leads data and solve the problems
 leads <- read_csv("DataFest Workshop 2016/Data/leads.csv") # uh-oh!
 
@@ -24,13 +25,6 @@ shopping <- read_csv("DataFest Workshop 2016/Data/shopping.csv")
 
 
 # Convert first 10 entries of the visitor data to a long format. Select the variables visitor_key, new_page_views and used_page_views. Then gather them together.
-visitor_tmp <- visitor %>% slice(1:10) %>% select(visitor_key, new_page_views, used_page_views)
-visitor_tmp 
-visitor_long <- gather(visitor_tmp, visitor_key, views)
-visitor_long
-names(visitor_long)[2] <- "car_type"
-visitor_long
-mutate(visitor_long, car_type = gsub("_page_views", "", car_type))
 
 
 # Show gather's more robust cousin, melt().
@@ -40,9 +34,17 @@ library(reshape2)
 # Create a faceted histogram of page views based on car type.
 
 
+# For the shopping data, use group_by on make_name and then count the number of each make of car via summarise.
 
 
+# For the shopping data, use group_by on visitor_key and make_name and then count the number of each make of car via summarise.
 
+
+# Use `select` to create data frames called `v_tmp` and `s_tmp`. Include `visitor_key` and `page_views` in `v_tmp`. Include only `visitor_key` and `make_name` for `s_tmp`. Combine each data frame using each join.
+
+
+# Do people who view more cars save more money?
+transactions <- read_csv("DataFest Workshop 2016/Data/transactions.csv")
 
 
 # From the slides:
@@ -89,3 +91,11 @@ leads <- type_convert(leads)
 leads %>% select(dealer_location_id) %>% str
 
 # Recall what this data is abouts
+
+
+v_tmp <-visitor %>% select(visitor_key, page_views)
+s_tmp <- shopping %>% select(visitor_key, make_name)
+vs_left <- left_join(v_tmp, s_tmp)
+vs_right <- right_join(v_tmp, s_tmp)
+vs_inner <- inner_join(v_tmp, s_tmp)
+vs_full <- full_join(v_tmp, s_tmp)

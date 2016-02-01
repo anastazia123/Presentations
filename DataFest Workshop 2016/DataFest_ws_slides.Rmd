@@ -82,27 +82,6 @@ _5 data files 2 dictionaries_.
 
 - _Lead_: A _lead_ occurs when a visitor expresses interest in a _specific vehicle at a specific dealership_ and then submits some form of contact information.
 
-<!--
-## DF2015 Data Dictionary
-
-`shopping.csv`
-
-> This table basically contains a vehicle browsing history of each visitor from the `visitor` table, showing which vehicles were seen during the visitor journey through our web site.
-
-
-## DF2015 Data Dictionary
-
-`configuration.csv`
-
-> This table is all options that a user selects when looking for a specific price on a certain vehicle.  For example, color, sun roof, audio system etc. The k\_uuid is the variable to denote the single configuration.  So if one visitor\_key has 3 unique k\_uuids then they completed the configuration process three times and all the options with the same k_uuid were selected for that single configuration.
-
-
-## DF2015 Data Dictionary
-
-`transactions.csv`
-
-> Some Edmunds' Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent.  This table contains detailed information about those purchases.  There is one row per transaction with several columns of detail, including date, vehicle data and some customer data.  For privacy reasons all personally identifiable information has been excluded.
--->
 
 # Reading in data.
 
@@ -187,7 +166,7 @@ Use `gather()` to convert the first 10 rows of `visitor` data to a _long_ format
     
 ## {.flexbox .vcenter}
 
-
+For the `shopping` data, `group_by` `make_name` and use `summarise` to count the times each make was _shopped_. Afterward, throw `visitor_key` into the `group_by` and perform the same counts.
 
 
 ## Thinking through `*_join`s.
@@ -199,6 +178,45 @@ Use `gather()` to convert the first 10 rows of `visitor` data to a _long_ format
     - Combine ALL observations and ALL variables for each data frame?
     - Combine ONLY those observations that are present in BOTH data frames?
     - Take the ONLY the observations from one data frame and ADD ON the variables from the other?
+
+
+## `joins`
+
+- `dplyr` can do the following joins:
+    1. `left_join()`
+    1. `right_join()`
+    1. `inner_join()`
+    1. `full_join()`
+
+- Can also do some subsets that are join-esque.
+    1. `semi_join()`
+    2. `anti_join()`
+
+## {.flexbox .vcenter}
+
+Use `select` to create a data frame called `v_tmp` and `s_tmp`. For `v_tmp`, include just the variables `visitor_key` and `page_views`. For `s_tmp`, include only `visitor_key` and `make_name`. Combine each data frame using each `*_join` from `dplyr`.
+
+
+## View and Review
+
+- Describe `left_`, `right_` and `inner_` joins. How do they work and how are they different from each other?
+
+
+## {.flexbox .vcenter}
+
+FIGURE OUT WHAT QUESTION YOU ARE TRYING TO ANSWER **BEFORE** YOU START FORMING YOUR DATA!
+
+
+## DF2015 Data Dictionary
+
+`transactions.csv`
+
+> Some Edmunds' Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent.  This table contains detailed information about those purchases.  There is one row per transaction with several columns of detail, including date, vehicle data and some customer data.  For privacy reasons all personally identifiable information has been excluded.
+
+
+## {.flexbox .vcenter}
+
+Do people who view more cars save more money? Load the `transactions` data and use the functions covered today to find out.
 
 
 # Save & Write.
