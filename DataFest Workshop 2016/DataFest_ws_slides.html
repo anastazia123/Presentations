@@ -151,7 +151,7 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 </article></slide><slide class=''><hgroup><h2>Getting the data:</h2></hgroup><article  id="getting-the-data">
 
 <ul>
-<li>Step one: Download it ( <a href='' title=''>PUT LINK TO DATA HERE</a> )</li>
+<li>Step one: <a href='https://www.dropbox.com/s/isibyhhjgd0ryag/DataFest2015.zip?dl=0' title=''>Download it</a></li>
 <li>Step two: Figure out what the hell is in it.</li>
 </ul>
 
@@ -161,7 +161,7 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section" class="flexbox vcenter">
 
-<p><strong>BEFORE YOUR READ-IN YOUR DATA</strong></p>
+<p><strong>BEFORE YOU READ-IN YOUR DATA</strong></p>
 
 <p><strong>STOP AND READ ABOUT WHAT IT IS</strong></p>
 
@@ -176,28 +176,6 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 <ul>
 <li><em>Lead</em>: A <em>lead</em> occurs when a visitor expresses interest in a <em>specific vehicle at a specific dealership</em> and then submits some form of contact information.</li>
 </ul>
-
-<!--
-## DF2015 Data Dictionary
-
-`shopping.csv`
-
-> This table basically contains a vehicle browsing history of each visitor from the `visitor` table, showing which vehicles were seen during the visitor journey through our web site.
-
-
-## DF2015 Data Dictionary
-
-`configuration.csv`
-
-> This table is all options that a user selects when looking for a specific price on a certain vehicle.  For example, color, sun roof, audio system etc. The k\_uuid is the variable to denote the single configuration.  So if one visitor\_key has 3 unique k\_uuids then they completed the configuration process three times and all the options with the same k_uuid were selected for that single configuration.
-
-
-## DF2015 Data Dictionary
-
-`transactions.csv`
-
-> Some Edmunds' Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent.  This table contains detailed information about those purchases.  There is one row per transaction with several columns of detail, including date, vehicle data and some customer data.  For privacy reasons all personally identifiable information has been excluded.
--->
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Reading in data.</h2></hgroup><article  id="reading-in-data.">
 
@@ -305,6 +283,8 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-5" class="flexbox vcenter">
 
+<p>For the <code>shopping</code> data, <code>group_by</code> <code>make_name</code> and use <code>summarise</code> to count the times each make was <em>shopped</em>. Afterward, throw <code>visitor_key</code> into the <code>group_by</code> and perform the same counts.</p>
+
 </article></slide><slide class=''><hgroup><h2>Thinking through <code>*_join</code>s.</h2></hgroup><article  id="thinking-through-_joins.">
 
 <ul>
@@ -323,6 +303,51 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 </ul></li>
 </ul>
 
+</article></slide><slide class=''><hgroup><h2><code>joins</code></h2></hgroup><article  id="joins">
+
+<ul>
+<li><code>dplyr</code> can do the following joins:
+
+<ol>
+<li><code>left_join()</code></li>
+<li><code>right_join()</code></li>
+<li><code>inner_join()</code></li>
+<li><code>full_join()</code></li>
+</ol></li>
+<li>Can also do some subsets that are join-esque.
+
+<ol>
+<li><code>semi_join()</code></li>
+<li><code>anti_join()</code></li>
+</ol></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-6" class="flexbox vcenter">
+
+<p>Use <code>select</code> to create a data frame called <code>v_tmp</code> and <code>s_tmp</code>. For <code>v_tmp</code>, include just the variables <code>visitor_key</code> and <code>page_views</code>. For <code>s_tmp</code>, include only <code>visitor_key</code> and <code>make_name</code>. Combine each data frame using each <code>*_join</code> from <code>dplyr</code>.</p>
+
+</article></slide><slide class=''><hgroup><h2>View and Review</h2></hgroup><article  id="view-and-review-1">
+
+<ul>
+<li>Describe <code>left_</code>, <code>right_</code> and <code>inner_</code> joins. How do they work and how are they different from each other?</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-7" class="flexbox vcenter">
+
+<p>FIGURE OUT WHAT QUESTION YOU ARE TRYING TO ANSWER <strong>BEFORE</strong> YOU START FORMING YOUR DATA!</p>
+
+</article></slide><slide class=''><hgroup><h2>DF2015 Data Dictionary</h2></hgroup><article  id="df2015-data-dictionary-3">
+
+<p><code>transactions.csv</code></p>
+
+<blockquote>
+<p>Some Edmunds&#39; Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent. This table contains detailed information about those purchases. There is one row per transaction with several columns of detail, including date, vehicle data and some customer data. For privacy reasons all personally identifiable information has been excluded.</p>
+</blockquote>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-8" class="flexbox vcenter">
+
+<p>Do people who view more cars save more money? Load the <code>transactions</code> data and use the functions covered today to find out.</p>
+
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Save &amp; Write.</h2></hgroup><article  id="save-write.">
 
 </article></slide><slide class=''><hgroup><h2><code>save()</code> vs. <code>write_csv()</code></h2></hgroup><article  id="save-vs.-write_csv">
@@ -339,7 +364,7 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 
 <pre class = 'prettyprint lang-r'>write_csv(JOINED DATA FILE, path = &quot;Data/JOINED DATA FILE.Rda&quot;)</pre>
 
-</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-6" class="flexbox vcenter">
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-9" class="flexbox vcenter">
 
 <p>Questions?</p>
 

@@ -61,7 +61,7 @@ mtcars %>% lm(mpg ~ disp, data = .)
 
 ## Getting the data:
 
-- Step one: Download it ( [PUT LINK TO DATA HERE]() )
+- Step one: [Download it](https://www.dropbox.com/s/isibyhhjgd0ryag/DataFest2015.zip?dl=0)
 - Step two: Figure out what the hell is in it.
 
 ![Files downloaded with the data](Images/Data Files.png)
@@ -70,7 +70,7 @@ _5 data files 2 dictionaries_.
 
 ## {.flexbox .vcenter}
 
-**BEFORE YOUR READ-IN YOUR DATA**
+**BEFORE YOU READ-IN YOUR DATA**
 
 **STOP AND READ ABOUT WHAT IT IS**
 
