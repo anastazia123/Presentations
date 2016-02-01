@@ -87,6 +87,16 @@ leads$dealer_location_id <- gsub("INA", NA, leads$dealer_location_id)
 leads <- type_convert(leads)
 str(leads)
 
+
+########################################################################
+shopping <- shopping %>% mutate(make_name = tolower(make_name),
+                    model_name = tolower(model_name), 
+                    viewed = 1)
+shopping_wide <- spread(shopping, make_name, value = viewed, fill = 0)
+
+visitor_long <- gather(visitor[1:], key = visitor_key, value = new_page_views)
+
+
 ########################################################################
 # Do people who view more cars save more money?
 shopping %>% group_by(visitor_key) %>% 

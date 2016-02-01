@@ -222,12 +222,12 @@ mtcars %&gt;% lm(mpg ~ disp, data = .)</pre>
 <pre class = 'prettyprint lang-r'>system.time(read.csv(&quot;Data/visitor.csv&quot;))</pre>
 
 <pre >##    user  system elapsed 
-## 163.611  21.946 196.853</pre>
+## 156.429   3.188 160.745</pre>
 
 <pre class = 'prettyprint lang-r'>system.time(read_csv(&quot;Data/visitor.csv&quot;))</pre>
 
 <pre >##    user  system elapsed 
-##  21.671   2.195  35.343</pre>
+##  15.609   0.800  16.531</pre>
 
 <ul>
 <li><code>read_csv()</code> is way faster that <code>read.csv()</code></li>

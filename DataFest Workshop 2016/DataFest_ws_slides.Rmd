@@ -36,6 +36,12 @@ library(tidyr) # (0.4.0)
 library(dplyr) # (0.4.3)
 ```
 
+```{r}
+library(ggplot2)
+library(reshape2)
+```
+
+
 
 ## Pipes `%>%`
 
@@ -93,13 +99,6 @@ _5 data files 2 dictionaries_.
 
 ## DF2015 Data Dictionary
 
-`leads.csv`
-
-> This table contains information about any leads that the visitors from the Visitor table submitted during their journey through the site. There is one row per lead in the table with several columns of detail about the lead.  For privacy reasons all personally identifiable information has been excluded.
-
-
-## DF2015 Data Dictionary
-
 `transactions.csv`
 
 > Some Edmunds' Dealer partners provide us with confirmation that Edmunds visitors who submitted leads then actually purchased a vehicle from the dealership where the lead was sent.  This table contains detailed information about those purchases.  There is one row per transaction with several columns of detail, including date, vehicle data and some customer data.  For privacy reasons all personally identifiable information has been excluded.
@@ -128,11 +127,17 @@ system.time(read_csv("Data/visitor.csv"))
 
 Switch to `RStudio` and use `read_csv()` and `read.csv()` to read-in the `visitor` data. Then look for differences.
 
+
+## DF2015 Data Dictionary
+
+`leads.csv`
+
+> This table contains information about any leads that the visitors from the Visitor table submitted during their journey through the site. There is one row per lead in the table with several columns of detail about the lead.  For privacy reasons all personally identifiable information has been excluded.
+
+
 ## {.flexbox .vcenter}
 
 Now use `read_csv()` to load the `leads` data and solve the `problems()`.
-
-
 
 
 ## View and Review
@@ -142,6 +147,48 @@ Now use `read_csv()` to load the `leads` data and solve the `problems()`.
 
 
 # Forming data.
+
+## What is _tidy_ data?
+
+- Need two things for a _tidy_ data:
+    1. Rows are individual observations.
+    2. Columns are measurements, more commonly variables, about each observation.
+- Two forms of _tidy_ data:
+    1. _Long_
+    2. _Wide_
+
+
+## DF2015 Data Dictionary
+
+`shopping.csv`
+
+> This table basically contains a vehicle browsing history of each visitor from the `visitor` table, showing which vehicles were seen during the visitor journey through our web site.
+
+
+## {.flexbox .vcenter}
+
+Use `read_csv()` to read in the `shopping` data. Then spread the values out to make it _wide_
+
+## {.flexbox .vcenter}
+
+Use `gather()` to convert the first 10 rows of `visitor` data to a _long_ format. Contrast this with the slightly more robust `melt()` function in `reshape2` package. Plot this _long_ data as a faceted histogram.
+
+## Our new friends
+
+- Helpful `dplyr` functions:
+    1. `select()`: Choose variables (by name or column number)
+    2. `slice()`: By row number.
+    3. `filter()`: Subset data based on values of variables.
+    4. `mutate()`: Add variables or change existing variables in place.
+    5. `summarize()`: Reduce data to a table of summaries
+    6. `arrange()`: Re-order rows based on variable values
+    7. `group_by()`: Perform operations based on categorical variables.
+    
+    
+## {.flexbox .vcenter}
+
+
+
 
 ## Thinking through `*_join`s.
 
@@ -173,4 +220,10 @@ write_csv(JOINED DATA FILE, path = "Data/JOINED DATA FILE.Rda")
 
 Questions?
 
+## Resources
 
+- [readr](https://github.com/hadley/readr)
+- [tidyr](https://github.com/hadley/tidyr)
+- [dplyr](https://github.com/hadley/dplyr)
+
+- Also worth looking at the `vignettes` for each of these packages.
