@@ -34,17 +34,26 @@ shopping <- shopping %>% mutate(make_name = tolower(make_name),
                     model_name = tolower(model_name),
                     viewed = "Yes")
 shopping_wide <- shopping %>% spread(make_name, value = viewed, fill = "No")
-# Note: spread() doesn't eliminate duplicated ids.
+# Note: spread() doesn't eliminate duplicated visitor_keys.
+
 
 # Convert first 10 entries of the visitor data to a long format. Select the variables visitor_key, new_page_views and used_page_views. Then gather them together.
+visitor %>% slice(1:10) %>% 
+  select(visitor_key, new_page_views, used_page_views) %>% 
+  gather(visitor_key, views)
 
 
 # Show gather's more robust cousin, melt().
 library(reshape2)
-
+visitor_long <- visitor %>% 
+  melt(id.vars = "visitor_key",
+       measure.vars = c("new_page_views", "used_page_views"),
+       variable.name = "car_type",
+       value.name = "views")
 
 # Create a faceted histogram of page views based on car type.
-
+visitor_long %>% filter(views < 300) %>% 
+  ggplot(aes(x = views)) + geom_histogram() + facet_wrap(~car_type, ncol = 1)
 
 # For the shopping data, use group_by on make_name and then count the number of each make of car via summarise.
 

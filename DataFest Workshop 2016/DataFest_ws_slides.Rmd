@@ -49,8 +49,8 @@ library(reshape2)
     - Super useful in the _Hadleyverse_.
     - Makes code more readable.
 - Takes objects on the left and pipes the object into:
-    (1) the first argument of the function on the right or 
-    (2) where we place a `.`
+    (1) the first argument of the function on the right 
+    (2) or where we place a `.`
 ```{r, eval = FALSE}
 mtcars %>% head(n = 2)
 mtcars %>% lm(mpg ~ disp, data = .)

@@ -8,11 +8,13 @@ library(ggplot2)
 visitor <- read_csv("DataFest Workshop 2016/Data/visitor.csv")
 visitor_base <- read.csv("DataFest Workshop 2016/Data/visitor.csv")
 
+
 # Look at variable 1:4 and then 189:190
 
 
 # Load the leads data and solve the problems
 leads <- read_csv("DataFest Workshop 2016/Data/leads.csv") # uh-oh!
+
 
 # Convert msrp and list_price to col_double()
 
